@@ -146,3 +146,12 @@ class NeuralNetwork:
         W1_old = self.W1.copy()
         self.W1 = (1 - 2*self.mu*self.rho) * W1_old - self.mu * np.outer(np.multiply(self.input, self.a1), delta_2)
         self.b1 = self.b1 + self.mu * delta_2
+
+    def normalize_weights(self):
+        if self.p_dropout:
+            self.W1 = (1 - self.p_dropout[0]) * self.W1
+            self.W2 = (1 - self.p_dropout[1]) * self.W2
+            self.W3 = (1 - self.p_dropout[2]) * self.W3
+            self.b1 = (1 - self.p_dropout[0]) * self.b1
+            self.b2 = (1 - self.p_dropout[1]) * self.b2
+            self.b3 = (1 - self.p_dropout[2]) * self.b3
